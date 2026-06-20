@@ -1,38 +1,41 @@
-from EmployeesManager import *
+from utility import *
+from Employee import *
 
 
-class FrontendManager:
+class EmployeesManager:
     def __init__(self):
-        self.EmployeesManager = EmployeesManager()
+        self.employees = []
 
-    def print_menu(self):
-        print("\nprogram options: ")
-        messages = [
-            '1) Add a new employee',
-            '2) List all employees',
-            '3) Delete by age range',
-            '4) Update salary given a name',
-            '5) End the program'
-        ]
-        print('\n'.join(messages))
-        msg = f'Enter your choice ( from 1 to {len(messages)})'
-        return input_is_valid(msg, 1, len(messages))
+    def add_employee(self):
+        print('Enter employee data')
+        name = input("Enter employee name")
+        age = input_is_valid("Enter employee age: ")
+        salary = input_is_valid("Enter employee salary: ")
+        self.employees.append(Employee(name, age, salary))
 
-    def run(self):
-        while True:
-            choice = self.print_menu()
+    def list_employee(self):
+        if len(self.employees) == 0:
+            print("\nEmployee list is empty !")
+            return
+        else:
+            for emp in self.employees:
+                print(emp)
 
-            if choice == 1:
-                self.EmployeesManager.add_employee()
-            elif choice == 2:
-                self.EmployeesManager.list_employee()
-            elif choice == 3:
-                age_from = int(input("Enter age from: \n"))
-                age_to = int(input("Enter age to:"))
-                self.EmployeesManager.delete_employees_with_age(age_from, age_to)
-            elif choice == 4:
-                name = input("Enter employee name: \n")
-                salary = input("Enter employee salary \n")
-                self.EmployeesManager.update_salary_by_name(name, salary)
-            else:
-                break
+    def delete_employees_with_age(self, age_from, age_to):
+        for emp in self.employees:
+            if age_from <= emp.age <= age_to:
+                print(f"\tDeleting employee {emp.name}")
+                self.employees.remove(emp)
+
+    def find_employee_by_name(self, name):
+        for emp in self.employees:
+            if emp.name == name:
+                return emp
+        return None
+
+    def update_salary_by_name(self, name, salary):
+        emp = self.find_employee_by_name(name)
+        if emp is None:
+            print('Error: No employee found')
+        else:
+            emp.salary = salary
