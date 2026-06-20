@@ -1,10 +1,5 @@
 # employee_system_management_project
 
-<<<<<<< HEAD
-=======
-# employee_system_management_project
-
->>>>>>> bfca038ed81b2e404f8ec4aea1f36584fe14affc
 # Description
 This project is a Python-based Employee Management System developed to demonstrate the four fundamental pillars of Object-Oriented Programming (OOP):
 
